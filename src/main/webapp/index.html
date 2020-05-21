@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PhotoFun</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/1-col-portfolio.css" rel="stylesheet">
+	<style>
+		#upload_response{
+			font-size: 12px;
+			font-style: italic;
+			color: green;
+		}
+		.image-uploader{
+			float: right;
+		}
+		
+		.filter-group{
+		    padding-bottom: 16px;
+			padding-right: 40px;
+		}
+		.btn-filter{
+			margin-top: 12px;
+		}
+		#filter_image_url{
+			max-width: 160px;
+			max-height: 160px;
+		}
+	</style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://localhost:8080/photofun/">PhotoFun</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">PhotoFun
+                    <small>play with photos :)</small>
+						<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary btn-lg image-uploader" data-toggle="modal" data-target="#myModal" float="right">
+					  Upload Image
+					</button>
+                </h1>
+            </div>
+        </div>
+        
+
+        <!-- Pagination -->
+        <div id="pagination_container" class="row text-center">
+            <div class="col-lg-12">
+                <ul class="pagination">
+                    <li>
+                        <a href="#">&laquo;</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">1</a>
+                    </li>
+                    <li>
+                        <a href="#">2</a>
+                    </li>
+                    <li>
+                        <a href="#">3</a>
+                    </li>
+                    <li>
+                        <a href="#">4</a>
+                    </li>
+                    <li>
+                        <a href="#">5</a>
+                    </li>
+                    <li>
+                        <a href="#">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+	
+	<!-- modal upload form -->
+	<!-- Modal upload modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Photo Uploader</h4>
+      </div>
+      <div class="modal-body">
+        <!--upload form-->
+		<div class="row">
+            <div class="col-md-12">
+				<form method="post" id="fileinfo" name="fileinfo" onsubmit="return submitForm();">
+				  <div class="form-group">
+					<label for="exampleInputFile">Choose Photo</label>
+					<input type="file" name="uploadedFile" id="exampleInputFile">
+					<label for="exampleTextarea">Description</label>
+					<textarea name="description" class="form-control" id="exampleTextarea" rows="3"></textarea>
+					<p class="help-block">provide description for the photo</p>
+				  </div>
+			</div>
+		</div>
+
+        <hr>
+		<p id="upload_response"></p>
+		
+		<!--/.upload form-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		 <button type="submit" class="btn btn-default">Upload</button>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	<!--/.modal upload form -->
+	<!-- Modal filter modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="filterModalLabel">Photo Filter</h4>
+      </div>
+      <div class="modal-body">
+        <!--upload form-->
+		<div class="row">
+            <div class="col-md-4">
+				<img id="filter_image_url" photo_id="1" src="http://localhost:8080/photofun/upload/Noorani.png"><br>
+				<button id="btn_bAndW" type="button" class="btn btn-primary btn-filter" onclick="initBlackAndWhiteFilter();">Filter Black & White</button>
+			</div>
+			<div class="col-md-8">
+				<div class="form-group filter-group">
+					<label for="resize_width">Width</label>
+					<input type="text" class="form-control" id="resize_width" placeholder="Width">
+					<label for="resize_height">Height</label>
+					<input type="text" class="form-control" id="resize_height" placeholder="Height">
+					<button id="btn_resize" type="button" class="btn btn-primary btn-filter" onclick="initResizeFilter();">Resize</button>
+			    </div>
+				
+				<div class="form-group filter-group">
+					<label for="crop_x">x-axis</label>
+					<input type="text" class="form-control" id="crop_x" placeholder="x-axis">
+					<label for="crop_y">y-axis</label>
+					<input type="text" class="form-control" id="crop_y" placeholder="y-axis">
+					<label for="crop_width">Width</label>
+					<input type="text" class="form-control" id="crop_width" placeholder="Width">
+					<label for="crop_height">Height</label>
+					<input type="text" class="form-control" id="crop_height" placeholder="Height">
+					<button id="btn_crop" type="button" class="btn btn-primary btn-filter" onclick="initCropFilter();">Crop</button>
+			    </div>
+			</div>
+		</div>
+
+        <hr>
+		<p id="filter_response"></p>
+		
+		<!--/.upload form-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+	<script>
+	$( document ).ready( function(){
+		updatePhotoList();
+	} );
+	
+	function deletePhoto(id){
+		$.ajax({
+			url: "http://localhost:8080/photofun/rest/photos/delete/"+id, 
+			success: function(response){
+			$("#photo_"+response.id).remove();
+			$("hr#"+id).remove();
+		}});
+	}
+	function updatePhotoList(){
+		$.ajax({
+			url: "http://localhost:8080/photofun/rest/photos/fetch?from=0&to=200", 
+			success: function(photos){
+			for(var photo of photos){
+				createPhotoRow(photo);
+			}
+			attachClickEvents();
+		}});
+	}
+	function attachClickEvents(){
+					//. on delete
+			$(".delete_photo a").click(function(){
+				var photo_id = $(this).attr("photo_id");
+				deletePhoto(photo_id);
+			});
+			
+			//. on filter
+			$(".apply_filter a").click(function(){
+				var photo_id = $(this).attr("photo_id");
+				var photo_url = $(this).attr("photo_url");
+				$("#filter_image_url").attr("photo_id", photo_id);
+				$("#filter_image_url").attr("src", photo_url);
+				
+			});
+			
+			//. on share
+			$(".twitter_share a").click(function(){
+				var photo_id = $(this).attr("photo_id");
+				photo_id = +photo_id;
+				var photo_url = $(this).attr("photo_url");
+				var photo_status = $(this).attr("status_update");
+				
+				var photoToShare = {"id":photo_id,"name":"share","url":photo_url,"description":photo_status};
+				//. use photofun share service to share the image on twitter
+				$.ajax({
+					type: "POST",
+					url: "rest/photos/share",
+					// The key needs to match your method's input parameter (case-sensitive).
+					data: JSON.stringify(photoToShare),
+					contentType: "application/json",
+					dataType: "json",
+					success: function(data){
+						alert("SUCCESS: shared on twitter");
+					},
+					failure: function(error) {
+						console.log(error);
+						alert("ERROR: unable to share photo :(");
+					}
+				});
+			});
+	}
+	function createPhotoRow(photo){
+		$('<div id="photo_'+photo.id+'" class="row">' +
+            '<div class="col-md-2">' +
+                '<a href="#">' +
+                    '<img class="img-responsive" src="'+photo.url+'" alt="'+photo.name+'">' +
+                '</a>' +
+            '</div>' +
+            '<div class="col-md-10">' +
+                '<h3>'+photo.name+'</h3>' +
+                '<p>'+photo.description+'.</p>' +
+                '<p class="apply_filter"><a photo_id="'+photo.id+'" photo_url="'+photo.url+'" class="btn btn-primary" data-toggle="modal" data-target="#filterModal"> Apply Filters <span class="glyphicon glyphicon-chevron-right"></span></a></p>' +
+				'<p class="delete_photo"><a photo_id="'+photo.id+'" class="btn btn-danger">Delete Photo <span class="glyphicon glyphicon-chevron-right"></span></a></p>' +
+				'<p class="twitter_share"><a photo_id="'+photo.id+'" photo_url="'+photo.url+'" status_update="'+photo.description+'" class="btn btn-primary"> Share On Twitter <span class="glyphicon glyphicon-chevron-right"></span></a></p>' +
+            '</div>' +
+        '</div><hr id="'+photo.id+'">'
+		).insertBefore( "#pagination_container" );
+	}
+	
+	
+	function submitForm() {
+            var fd = new FormData(document.getElementById("fileinfo"));
+            fd.append("label", "WEBUPLOAD");
+            $.ajax({
+              url: "rest/photos/upload",
+              type: "POST",
+              data: fd,
+              processData: false,  // tell jQuery not to process the data
+              contentType: false   // tell jQuery not to set contentType
+            }).done(function( data ) {
+				$("#upload_response").html("Uploaded Succesfully!");
+            });
+            return false;
+        }
+		
+	function initBlackAndWhiteFilter(){
+		var uPhotoId = $("#filter_image_url").attr("photo_id");
+		soapBlackAndWhite(uPhotoId);
+	}
+	function initResizeFilter(){
+		var uPhotoId = $("#filter_image_url").attr("photo_id");
+		var width = $("#resize_width").val();
+		var height = $("#resize_height").val();
+		soapResize(width, height, uPhotoId);
+	}
+	function initCropFilter(){
+		var uPhotoId = $("#filter_image_url").attr("photo_id");
+		var x = $("#crop_x").val();
+		var y = $("#crop_y").val();
+		var width = $("#crop_width").val();
+		var height = $("#crop_height").val();
+		soapCrop(x, y, width, height, uPhotoId);
+	}
+	function soapBlackAndWhite(photoId) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('POST', 'http://localhost:8080/photosoap-v1.0/ws', true);
+
+            // build SOAP request
+            var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ' +
+									  'xmlns:gs="http://spring.io/guides/gs-producing-web-service">' +
+					   '<soapenv:Header/>' +
+					   '<soapenv:Body>' +
+						  '<gs:photoBlackAndWhite>' +
+							 '<gs:id>'+photoId+'</gs:id>' +
+						  '</gs:photoBlackAndWhite>' +
+					   '</soapenv:Body>' +
+					'</soapenv:Envelope>';
+
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4) {
+                    if (xmlhttp.status == 200) {
+                        alert('DONE. Black&White applied successfully');
+						window.location.reload();
+                    }
+                }
+            }
+			/*xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+			xmlhttp.setRequestHeader('Access-Control-Allow-Methods', 'POST');
+			xmlhttp.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, x-requested-with, X-Custom-Header');*/
+            // Send the POST request
+            xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+            xmlhttp.send(sr);
+			console.log("request sent!");
+        }
+		
+		function soapResize(width, height, photoId) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('POST', 'http://localhost:8080/photosoap-v1.0/ws', true);
+
+            // build SOAP request
+            var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ' +
+									  'xmlns:gs="http://spring.io/guides/gs-producing-web-service">' +
+					   '<soapenv:Header/>' +
+					   '<soapenv:Body>' +
+						  '<gs:photoResize>' +
+							 '<gs:id>'+photoId+'</gs:id>' +
+							 '<gs:width>'+width+'</gs:width>' +
+							 '<gs:height>'+height+'</gs:height>' +
+						  '</gs:photoResize>' +
+					   '</soapenv:Body>' +
+					'</soapenv:Envelope>';
+
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4) {
+                    if (xmlhttp.status == 200) {
+                        alert('DONE. Resized Successfully');
+						window.location.reload();
+                    }
+                }
+            }
+			/*xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+			xmlhttp.setRequestHeader('Access-Control-Allow-Methods', 'POST');
+			xmlhttp.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, x-requested-with, X-Custom-Header');*/
+            // Send the POST request
+            xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+            xmlhttp.send(sr);
+			console.log("request sent!");
+        }
+		
+		function soapCrop(x, y, width, height, photoId) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('POST', 'http://localhost:8080/photosoap-v1.0/ws', true);
+
+            // build SOAP request
+            var sr = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ' +
+									  'xmlns:gs="http://spring.io/guides/gs-producing-web-service">' +
+					   '<soapenv:Header/>' +
+					   '<soapenv:Body>' +
+						  '<gs:photoCrop>' +
+							 '<gs:id>'+photoId+'</gs:id>' +
+							 '<gs:x>'+x+'</gs:x>' +
+							 '<gs:y>'+y+'</gs:y>' +
+							 '<gs:width>'+width+'</gs:width>' +
+							 '<gs:height>'+height+'</gs:height>' +
+						  '</gs:photoCrop>' +
+					   '</soapenv:Body>' +
+					'</soapenv:Envelope>';
+
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4) {
+                    if (xmlhttp.status == 200) {
+                        alert('DONE. Croped successfully');
+						window.location.reload();
+                    }
+                }
+            }
+			/*xmlhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+			xmlhttp.setRequestHeader('Access-Control-Allow-Methods', 'POST');
+			xmlhttp.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type, x-requested-with, X-Custom-Header');*/
+            // Send the POST request
+            xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+            xmlhttp.send(sr);
+			console.log("request sent!");
+        }	
+	</script>
+
+</body>
+
+</html>
