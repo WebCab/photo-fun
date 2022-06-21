@@ -8,7 +8,7 @@
 	<name>PhotoFun Service</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<mysql.connectorj.version>5.1.6</mysql.connectorj.version>
+		<mysql.connectorj.version>8.0.28</mysql.connectorj.version>
 	</properties>
 	<repositories>
 		<repository>
